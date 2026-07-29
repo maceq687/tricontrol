@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "serve": "node ./src/server.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -12,6 +13,7 @@
     "vite": "^8.1.1"
   },
   "dependencies": {
+    "osc-js": "^2.4.1",
     "triki-controller": "^0.3.0"
   }
 }

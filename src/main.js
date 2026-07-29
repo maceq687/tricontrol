@@ -9,6 +9,6 @@ document.querySelector('#app').innerHTML = `
   <button id="connect">Connect</button>
   <button id="reset">Reset orientation</button>
   <button id="disconnect">Disconnect</button>
-  <textarea id="output" readonly rows=10></textarea>
+  <p id="output"p></p>
 </section>
 `
