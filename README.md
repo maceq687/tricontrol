@@ -1,6 +1,8 @@
 # tricontrol
 
-The purpose of this project is to use a Chromium-based web browser (e.g. Chrome, Edge or Opera) to receive the IMU data from Triki controller using BLE and send it to another application in the form of the MIDI CC and OSC messages.
+The purpose of this project is to use a Chromium-based web browser (e.g. Chrome, Edge or Opera) to receive the IMU (LSM6DSL) data from [Triki controller](https://triki.zabka.pl/) using BLE and send it to another application in the form of the MIDI CC and/or OSC messages.
+
+Live demo is available here: [`maceq687.github.io/tricontrol/`](https://maceq687.github.io/tricontrol/)
 
 ## Development
 
@@ -23,3 +25,9 @@ Connect with your Triki controller using the 'Connect' button in the app
 If all goes well you should be able to receive roll, pitch and yaw data:
  - MIDI: CC 4, 5 and 6 on channel 1
  - OSC: (`/orientation`) on UDP port 9129
+
+## Dependencies
+
+ - [triki-controller](https://github.com/Flopsstuff/triki/tree/main/packages/triki-controller)
+ - [osc-js](https://github.com/adzialocha/osc-js)
+ - [webmidi](https://webmidijs.org/)

@@ -1,6 +1,7 @@
 {
   "name": "tricontrol",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "homepage": "https://maceq687.github.io/tricontrol/",
   "private": true,
   "type": "module",
   "scripts": {
