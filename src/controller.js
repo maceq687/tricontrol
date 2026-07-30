@@ -1,5 +1,6 @@
 import { TrikiController } from "triki-controller";
 import OSC from "osc-js";
+import { WebMidi } from "webmidi";
 
 if (!TrikiController.isSupported()) {
   throw new Error("This browser has no Web Bluetooth.");
@@ -10,6 +11,7 @@ const osc = new OSC();
 
 var connectionState = null;
 var output = "";
+var midiOutputDeviceName = null;
 
 osc.open(); // connect by default to ws://localhost:8080
 
@@ -31,8 +33,17 @@ triki.on("orientation", (o) => {
   // console.log("orientation", o.euler);
   output = "roll: " + round(o.euler.roll) + ", pitch: " + round(o.euler.pitch) + ", yaw: " + round(o.euler.yaw);
   document.getElementById("output").innerHTML = output;
-  var message = new OSC.Message('/orientation', o.euler.roll, o.euler.pitch, o.euler.yaw);
-  osc.send(message);
+
+  if (osc.status() === 1) {
+    var message = new OSC.Message('/orientation', o.euler.roll, o.euler.pitch, o.euler.yaw);
+    osc.send(message);
+  }
+
+  if (midiOutputDeviceName) {
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(4, convertToCC(o.euler.roll));
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(5, convertToCC(o.euler.pitch));
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(6, convertToCC(o.euler.yaw));
+  }
 });
 
 // Must be inside a click/tap handler:
@@ -41,14 +52,44 @@ document.querySelector("#connect").addEventListener("click", async () => {
   triki.resetHeading();
 });
 
-document.querySelector("#reset").addEventListener("click", async () => {
+document.querySelector("#reset").addEventListener("click", () => {
   triki.resetHeading();         // re-zero yaw whenever you like
 });
 
-document.querySelector("#disconnect").addEventListener("click", async () => {
+document.querySelector("#disconnect").addEventListener("click", () => {
   triki.disconnect();
 });
 
 function round(value) {
     return Math.round(value * 10)/10
 }
+
+function convertToCC(value) {
+    return Math.round((value + 180)/360*127)
+}
+
+WebMidi
+  .enable()
+  .then(onEnabled)
+  .catch(err => alert(err));
+
+function onEnabled() {
+  const outportMenu = document.getElementById("midiOut-select");
+  const outportError = document.getElementById("midiOut-error");
+
+  // Display available MIDI output devices
+  if (WebMidi.outputs.length < 1) {
+    outportError.innerHTML+= "No device detected.";
+  } else {
+    WebMidi.outputs.forEach((mdevice, index) => {
+      const option = document.createElement("option");
+      option.text = mdevice.name;
+      outportMenu.add(option);
+    });
+  }
+}
+
+document.getElementById("midiOut-select").addEventListener("change", () => {
+  const outportMenu = document.getElementById("midiOut-select");
+  midiOutputDeviceName = outportMenu.options[outportMenu.selectedIndex].value;
+});

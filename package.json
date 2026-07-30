@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "osc-js": "^2.4.1",
-    "triki-controller": "^0.3.0"
+    "triki-controller": "^0.3.0",
+    "webmidi": "^3.1.16"
   }
 }
