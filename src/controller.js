@@ -12,6 +12,7 @@ const osc = new OSC();
 var connectionState = null;
 var output = "";
 var midiOutputDeviceName = null;
+var midiOutputChannel = 1;
 var rollControllerNumber = 4;
 var pitchControllerNumber = 5;
 var yawControllerNumber = 6;
@@ -43,9 +44,9 @@ triki.on("orientation", (o) => {
   }
 
   if (midiOutputDeviceName) {
-    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(rollControllerNumber, convertToCC(o.euler.roll));
-    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(pitchControllerNumber, convertToCC(o.euler.pitch * 2));
-    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(yawControllerNumber, convertToCC(o.euler.yaw));
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[midiOutputChannel].sendControlChange(rollControllerNumber, convertToCC(o.euler.roll));
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[midiOutputChannel].sendControlChange(pitchControllerNumber, convertToCC(o.euler.pitch * 2));
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[midiOutputChannel].sendControlChange(yawControllerNumber, convertToCC(o.euler.yaw));
   }
 });
 
@@ -95,6 +96,11 @@ function onEnabled() {
 document.getElementById("midiOut-select").addEventListener("change", () => {
   const outportMenu = document.getElementById("midiOut-select");
   midiOutputDeviceName = outportMenu.options[outportMenu.selectedIndex].value;
+});
+
+document.getElementById("midiOutChannel-select").addEventListener("change", () => {
+  const outChannelMenu = document.getElementById("midiOutChannel-select");
+  midiOutputChannel = Number(outChannelMenu.options[outChannelMenu.selectedIndex].value);
 });
 
 document.getElementById("rollControllerNumber-select").addEventListener("change", () => {
