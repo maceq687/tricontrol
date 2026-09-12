@@ -113,3 +113,11 @@ textarea {
     gap: 18px;
   }
 }
+
+#footer {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+  padding: 20px;
+}

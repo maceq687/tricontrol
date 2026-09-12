@@ -18,4 +18,7 @@ document.querySelector('#app').innerHTML = `
     </select>
   </form>
 </section>
+<section id="footer">
+  <button onclick="window.location.href='https://github.com/maceq687/tricontrol';">See the source code</button>
+</section>
 `
