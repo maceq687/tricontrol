@@ -12,6 +12,9 @@ const osc = new OSC();
 var connectionState = null;
 var output = "";
 var midiOutputDeviceName = null;
+var rollControllerNumber = 4;
+var pitchControllerNumber = 5;
+var yawControllerNumber = 6;
 
 osc.open(); // connect by default to ws://localhost:8080
 
@@ -40,9 +43,9 @@ triki.on("orientation", (o) => {
   }
 
   if (midiOutputDeviceName) {
-    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(4, convertToCC(o.euler.roll));
-    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(5, convertToCC(o.euler.pitch));
-    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(6, convertToCC(o.euler.yaw));
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(rollControllerNumber, convertToCC(o.euler.roll));
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(pitchControllerNumber, convertToCC(o.euler.pitch * 2));
+    WebMidi.getOutputByName(midiOutputDeviceName).channels[1].sendControlChange(yawControllerNumber, convertToCC(o.euler.yaw));
   }
 });
 
@@ -92,4 +95,19 @@ function onEnabled() {
 document.getElementById("midiOut-select").addEventListener("change", () => {
   const outportMenu = document.getElementById("midiOut-select");
   midiOutputDeviceName = outportMenu.options[outportMenu.selectedIndex].value;
+});
+
+document.getElementById("rollControllerNumber-select").addEventListener("change", () => {
+  const controllerNumberMenu = document.getElementById("rollControllerNumber-select");
+  rollControllerNumber = Number(controllerNumberMenu.options[controllerNumberMenu.selectedIndex].value);
+});
+
+document.getElementById("pitchControllerNumber-select").addEventListener("change", () => {
+  const controllerNumberMenu = document.getElementById("pitchControllerNumber-select");
+  pitchControllerNumber = Number(controllerNumberMenu.options[controllerNumberMenu.selectedIndex].value);
+});
+
+document.getElementById("yawControllerNumber-select").addEventListener("change", () => {
+  const controllerNumberMenu = document.getElementById("yawControllerNumber-select");
+  yawControllerNumber = Number(controllerNumberMenu.options[controllerNumberMenu.selectedIndex].value);
 });
