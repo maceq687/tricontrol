@@ -22,9 +22,16 @@ Once started, navigate to the app at [`http://localhost:5173`](http://localhost:
 
 Connect with your Triki controller using the 'Connect' button in the app
 
-If all goes well you should be able to receive roll, pitch and yaw data:
- - MIDI: CC 4, 5 and 6 on channel 1
- - OSC: (`/orientation`) on UDP port 9129
+If all goes well you should be able to receive MIDI (by default on channel 1) and UDP (on port 9129) data:
+ - orientation (roll, pitch and yaw) data:
+   - MIDI: CC 4, 5 and 6
+   - OSC: `/orientation` (in degrees)
+ - gyroscope x, y and z data:
+   - MIDI: CC 7, 8 and 9
+   - OSC: `/gyro` (in deg/s)
+ - accelerometer x, y and z data:
+   - MIDI: CC 10, 11 and 12
+   - OSC: `/accel` (in g)
 
 ## Dependencies
 
