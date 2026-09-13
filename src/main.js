@@ -9,7 +9,9 @@ document.querySelector("#app").innerHTML = `
   <button id="connect">Connect</button>
   <button id="reset">Reset orientation</button>
   <button id="disconnect">Disconnect</button>
-  <p id="output"p></p>
+  <p id="orientationOutput"p></p>
+  <p id="gyroOutput"p></p>
+  <p id="accelOutput"p></p>
   <h2>MIDI out</h2>
   <span id="midiOut-error"></span>
   <form id="midiOut-form">
@@ -43,6 +45,8 @@ document.querySelector("#app").innerHTML = `
       </label>
     </div>
     <div>
+      <label>Send orientation:</label>
+      <input type="checkbox" id="orientationToggle" checked>
       <label>
         Roll CC nr:
         <select id="rollControllerNumber-select">
@@ -100,6 +104,140 @@ document.querySelector("#app").innerHTML = `
           <option value="10">10</option>
           <option value="11">11</option>
           <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label>Send gyro:</label>
+      <input type="checkbox" id="gyroToggle">
+      <label>
+        X CC nr:
+        <select id="gyroXControllerNumber-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7" selected>7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </label>
+      <label>
+        Y CC nr:
+        <select id="gyroYControllerNumber-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8" selected>8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </label>
+      <label>
+        Z CC nr:
+        <select id="gyroZControllerNumber-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9" selected>9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label>Send accel:</label>
+      <input type="checkbox" id="accelToggle">
+      <label>
+        X CC nr:
+        <select id="accelXControllerNumber-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10" selected>10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </label>
+      <label>
+        Y CC nr:
+        <select id="accelYControllerNumber-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11" selected>11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </label>
+      <label>
+        Z CC nr:
+        <select id="accelZControllerNumber-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12" selected>12</option>
           <option value="13">13</option>
           <option value="14">14</option>
           <option value="15">15</option>
